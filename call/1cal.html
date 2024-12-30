@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="ai (1).png">
+    <title>One Input Calculator</title>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        
+        .chat-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 10px;
+            overflow-y: auto;
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+        }
+
+        .input-container {
+            display: flex;
+            padding: 10px;
+            background-color: #fff;
+            border-top: 1px solid #ddd;
+        }
+
+        .input-container input {
+            flex: 1;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            margin-right: 10px;
+            box-shadow: 0 2px 4px rgba(255, 250, 250, 0.1);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .input-container button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 20px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .welcome-message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 24px;
+            font-weight: bold;
+            color: #007bff;
+            text-align: center;
+        }
+
+        .message.result {
+            background-color: #28a745; /* Green background for results */
+            color: white;
+            font-weight: bold;
+            border-radius: 20px;
+            padding: 10px 15px;
+            max-width: 70%;
+            word-wrap: break-word;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            align-self: flex-end;
+            transform: scale(1.05);
+            transition: transform 0.2s ease, background-color 0.3s ease;
+        }
+
+        .message.result:hover {
+            transform: scale(1.08);
+            background-color: #218838; /* Darker green on hover */
+        }
+
+        div.message.bot {
+            background-color: #007bff;
+            margin: 5px 0;
+            padding: 10px 15px;
+            border-radius: 20px;
+            max-width: 100%;
+            word-wrap: break-word;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease, background-color 0.3s ease;
+            text-align: center;
+        }
+
+        /* Add this CSS to define the message class */
+        .message {
+            padding: 10px;
+            border-radius: 10px;
+            font-size: medium;
+            margin: 5px 0;
+            max-width: 70%;
+            word-wrap: break-word;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="welcomeMessage" class="welcome-message">Welcome to Aasim AI</div>
+
+    <div class="chat-container" id="chatContainer">
+        <!-- Messages will appear here--> 
+    </div>
+
+    <div class="input-container">
+        <input type="text" id="expression" placeholder="Enter a math expression..." />
+        <button onclick="calculate()">Calculate</button>
+    </div>
+
+    <script>
+        function calculate() {
+            const expression = document.getElementById('expression').value;
+            try {
+                const result = eval(expression);
+                displayMessage(`Result: ${result}`, "bot");
+            } catch {
+                displayMessage("Invalid expression!", "bot");
+            }
+        }
+
+        function displayMessage(message, type) {
+            const chatContainer = document.getElementById("chatContainer");
+            const messageBubble = document.createElement("div");
+            messageBubble.className = `message ${type}`;
+            messageBubble.textContent = message;
+            chatContainer.appendChild(messageBubble);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+    </script>
+</body>
+</html>
